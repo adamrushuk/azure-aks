@@ -32,7 +32,8 @@ $aksClusterName = "$($uniquePrefix)-aks-cluster01"
 $location = "eastus"
 $aksResourceGroup = "akspipeline"
 $aksNodeCount = 2
-$latestVersion = $(az aks get-versions -l $location --query 'orchestrators[-1].orchestratorVersion' -o tsv)
+# $latestVersion = $(az aks get-versions -l $location --query 'orchestrators[-1].orchestratorVersion' -o tsv)
+$latestVersion = "1.13.5"
 #endregion Vars
 
 
@@ -48,7 +49,7 @@ az aks create --resource-group $aksResourceGroup --name $aksClusterName --node-c
 
 #region Validate AKS cluster
 # Install kubectl locally (if required)
-az aks install-cli
+# az aks install-cli
 
 # Get the access credentials for the Kubernetes cluster
 # Creds are merged into your current console session, eg:
@@ -62,12 +63,12 @@ kubectl get pods
 
 
 #region Deploy nginx demo
-# Deploy yaml
-kubectl apply -f nginxdemo.yml
+# Deploy yaml (this step is now move a separate release job task)
+# kubectl apply -f nginxdemo.yml
 
 # Show service info
-kubectl get service nginxdemo
-kubectl describe service nginxdemo
+# kubectl get service nginxdemo
+# kubectl describe service nginxdemo
 #endregion Deploy nginx demo
 
 
