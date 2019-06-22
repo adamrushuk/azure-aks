@@ -24,20 +24,25 @@
 
 
 #region Vars
-# no dashes or spaces allowed in prefix, and MUST be lowercase as some character restrictions for some resources
-$uniquePrefix = "adamrushuk"
+[CmdletBinding()]
+param (
+    # no dashes or spaces allowed in prefix, and MUST be lowercase as some character restrictions for some resources
+    $uniquePrefix = "adamrushuk",
 
-# Shouldn't need to change anything below
-$aksClusterName = "$($uniquePrefix)-aks-cluster01"
-$location = "eastus"
-$aksResourceGroup = "akspipeline"
-$aksNodeCount = 2
-# $latestVersion = $(az aks get-versions -l $location --query 'orchestrators[-1].orchestratorVersion' -o tsv)
-$latestVersion = "1.13.5"
+    # Shouldn't need to change anything below
+    $aksClusterName = "$($uniquePrefix)-aks-cluster01",
+    $location = "eastus",
+    $aksResourceGroup = "akspipeline",
+    $aksNodeCount = 2,
+    # $latestVersion = $(az aks get-versions -l $location --query 'orchestrators[-1].orchestratorVersion' -o tsv)
+    $latestVersion = "1.13.5"
+)
 #endregion Vars
 
 
 #region Create resources
+az login
+
 # Create a Resource Group
 az group create --name $aksResourceGroup --location $location
 
