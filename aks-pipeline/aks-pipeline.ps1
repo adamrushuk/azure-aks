@@ -65,12 +65,8 @@ kubectl get pods
 # Deploy yaml
 kubectl apply -f nginxdemo.yml
 
-# Monitor deployment
-# Wait to see the EXTERNAL-IP appear, using --watch
-# Use `Ctrl + C` to cancel
-kubectl get service nginxdemo --watch
-
 # Show service info
+kubectl get service nginxdemo
 kubectl describe service nginxdemo
 #endregion Deploy nginx demo
 
