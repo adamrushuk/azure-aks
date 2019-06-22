@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginxdemo
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: nginxdemo
+  template:
+    metadata:
+      labels:
+        app: nginxdemo
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+        - name: nginxdemo
+          image: nginxdemos/hello
+          ports:
+            - containerPort: 80
+              name: nginxdemo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginxdemo
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      nodePort: 30310
+      targetPort: 80
+  selector:
+    app: nginxdemo
